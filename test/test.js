@@ -64,26 +64,48 @@ describe('Lucky Numbers', () => {
 });
 
 describe('Generate Your Lucky Numbers', () => {
+    it('should generate a set with size equals the number to play on the lottery', () => {
+        let minRange = 1;
+        let maxRange = 10;
+        let numsToPlay = 3;
+        const expected = 3;
+
+        let lotteryNumber = games.getMyLuckyNumbers(numsToPlay, minRange, maxRange);
+        const solution = lotteryNumber.size;
+
+        assert.equal(expected, solution);        
+    });
+
     it('should be integers', () => {
-        const solution = getMyLuckyNumber(1,3);
+        let minRange = 1;
+        let numsToPlay = 1;
+        let maxRange = 10;
+
+        const lotteryNumber = games.getMyLuckyNumbers(numsToPlay, minRange, maxRange);
+        const solution = lotteryNumber;
 
         assert.isNotNaN(solution);
     });
 
     it('should be within range', () => {
         let minRange = 1;
+        let numsToPlay = 1;
         let maxRange = 10;
 
-        const solution = getMyLuckyNumber(minRange, maxRange);
+        let lotteryNumbers = games.getMyLuckyNumbers(numsToPlay, minRange, maxRange);
+        const solution = lotteryNumbers.values().next().value;
 
         expect(solution).to.be.within(minRange, maxRange);
     });
 
-    it('should accept lower or upper bound value', () => {
+    it('should generate lucky numbers considering upper or lower values', () => {
         let minRange = 0;
         let maxRange = 0;
+        let numsToPlay = 1;
 
-        const solution = getMyLuckyNumber(minRange, maxRange);
+        let lotteryNumbers = games.getMyLuckyNumbers(numsToPlay, minRange, maxRange);
+        const solution = lotteryNumbers.values().next().value;
+
         const expected = 0;
 
         assert.equal(solution, expected);
